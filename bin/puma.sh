@@ -8,7 +8,7 @@ PUMA_SOCKET=$APP_PATH/tmp/puma.sock
 puma_is_running() {
   if [ -S $PUMA_SOCKET ] ; then
     if [ -e $PUMA_PID_FILE ] ; then
-      if cat $PUMA_PID_FILE | xargs pgrep -P > /dev/null ; then
+      if cat $PUMA_PID_FILE | xargs ps -p > /dev/null ; then
         return 0
       else
         echo "No puma process found"

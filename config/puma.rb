@@ -7,6 +7,9 @@
 threads_count = ENV.fetch("RAILS_MAX_THREADS") { 2 }.to_i
 threads threads_count, threads_count
 
+app_name = "r5test"
+#项目路径
+application_path = "/var/www/#{app_name}"
 # Specifies the `port` that Puma will listen on to receive requests, default is 3000.
 #
 #port        ENV.fetch("PORT") { 3000 }
@@ -48,4 +51,6 @@ environment ENV.fetch("RAILS_ENV") { "production" }
 # end
 
 # Allow puma to be restarted by `rails restart` command.
+stdout_redirect "#{application_path}/shared/log/puma.stdout.log", "#{application_path}/shared/log/puma.stderr.log"
+
 plugin :tmp_restart

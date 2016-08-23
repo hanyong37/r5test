@@ -1,4 +1,6 @@
-if ENV['RAILS_ENV'] == 'production'
+# 为什么无法取到环境变量？  ENV['RAILS_ENV'] => nil
+if ENV['RAILS_ENV'] = 'production'
+
 
   app_root = '/var/www/r5test'
   pidfile "#{app_root}/tmp/puma.pid"
@@ -21,6 +23,5 @@ if ENV['RAILS_ENV'] == 'production'
   end
 
 else
-  puts "==#{ENV['RAILS_ENV']}=="
   plugin :tmp_restart
 end

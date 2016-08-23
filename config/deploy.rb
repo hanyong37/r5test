@@ -84,11 +84,12 @@ task :deploy => :environment do
     to :launch do
       queue "mkdir -p #{deploy_to}/#{current_path}/tmp/"
       queue "touch #{deploy_to}/#{current_path}/tmp/restart.txt"
-      invoke :'puma:restart'
+      invoke :'puma:stop'
+      invoke :'puma:start'
     end
   end
 end
-
+RAILS_ENV=#{stage} && bin/puma.sh startRAILS_ENV=#{stage} && bin/puma.sh start
 # For help in making your deploy script, see the Mina documentation:
 #
 #  - http://nadarei.co/mina
@@ -99,7 +100,7 @@ namespace :puma do
   desc "Start the application"
   task :start do
     queue 'echo "-----> Start Puma"'
-    queue "cd #{app_path} && RAILS_ENV=#{stage} && bin/puma.sh start", :pty => false
+    queue "cd #{app_path} && RAILS_ENV=#{stage} && bin/puma.sh start"
   end
 
   desc "Stop the application"

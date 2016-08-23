@@ -1,6 +1,8 @@
 #! /bin/sh
-APP_PATH=/var/www/r5test/
-PUMA_CONFIG_FILE=$APP_PATH/current/config/puma.rb
+# APP_PATH=/var/www/r5test/current
+APP_PATH=~/dev/rails5/r5test
+
+PUMA_CONFIG_FILE=$APP_PATH/config/puma.rb
 PUMA_PID_FILE=$APP_PATH/tmp/puma.pid
 PUMA_SOCKET=$APP_PATH/tmp/puma.sock
 
@@ -40,7 +42,8 @@ case "$1" in
 
   stop)
     echo "Stopping puma..."
-    kill -s SIGTERM `cat $PUMA_PID_FILE`
+    echo $PUMA_PID_FILE
+    kill -s TERM `cat $PUMA_PID_FILE`
     rm -f $PUMA_PID_FILE
     rm -f $PUMA_SOCKET
     echo "done"
@@ -49,7 +52,7 @@ case "$1" in
   restart)
     if puma_is_running ; then
       echo "Hot-restarting puma..."
-      kill -s SIGUSR2 `cat $PUMA_PID_FILE`
+      kill -s USR2 `cat $PUMA_PID_FILE`
 
       echo "Doublechecking the process restart..."
       sleep 5

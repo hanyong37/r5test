@@ -1,14 +1,10 @@
-# Default to production
-rails_env = ENV['RAILS_ENV'] || "production"
-environment rails_env
-
 if ENV['RAILS_ENV'] == 'production'
 
   app_root = '/var/www/r5test'
   pidfile "#{app_root}/tmp/puma.pid"
   state_path "#{app_root}/tmp/puma.state"
   bind "unix://#{app_root}/tmp/puma.sock"
-  # activate_control_app "unix://#{app_root}/tmp/pumactl.sock"
+  activate_control_app "unix://#{app_root}/tmp/pumactl.sock"
   daemonize true
   workers 0
   threads 2, 4
@@ -25,5 +21,6 @@ if ENV['RAILS_ENV'] == 'production'
   end
 
 else
+  puts "==#{ENV['RAILS_ENV']}=="
   plugin :tmp_restart
 end

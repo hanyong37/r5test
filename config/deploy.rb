@@ -16,6 +16,7 @@ set :deploy_to, '/var/www/r5test'
 set :repository, 'https://github.com/hanyong37/r5test'
 set :branch, 'master'
 set :app_path, lambda { "#{deploy_to}/#{current_path}" }
+set :stage, 'production'
 
 # For system-wide RVM install.
 #   set :rvm_path, '/usr/local/rvm/bin/rvm'
@@ -89,7 +90,6 @@ task :deploy => :environment do
     end
   end
 end
-RAILS_ENV=#{stage}
 # For help in making your deploy script, see the Mina documentation:
 #
 #  - http://nadarei.co/mina
@@ -99,7 +99,7 @@ RAILS_ENV=#{stage}
 namespace :puma do
   desc "Start the application"
   task :start do
-    queue 'echo "-----> Start Puma,RAILS_ENV=#{stage} '
+    queue "echo \"-----> Start Puma on RAILS_ENV=#{stage}\" "
     queue "cd #{app_path} && RAILS_ENV=#{stage} && bin/puma.sh start"
   end
 

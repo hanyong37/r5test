@@ -22,7 +22,7 @@ set :app_path, lambda { "#{deploy_to}/#{current_path}" }
 
 # Manually create these paths in shared/ (eg: shared/config/database.yml) in your server.
 # They will be linked in the 'deploy:link_shared_paths' step.
-set :shared_paths, ['config/database.yml', 'config/secrets.yml', 'log']
+set :shared_paths, ['config/database.yml', 'config/secrets.yml', 'log', 'db/production.sqlite3']
 
 # Optional settings:
 #   set :user, 'foobar'    # Username in the server to SSH to.
@@ -89,7 +89,7 @@ task :deploy => :environment do
     end
   end
 end
-RAILS_ENV=#{stage} && bin/puma.sh start RAILS_ENV=#{stage} && bin/puma.sh start
+RAILS_ENV=#{stage}
 # For help in making your deploy script, see the Mina documentation:
 #
 #  - http://nadarei.co/mina
@@ -99,7 +99,7 @@ RAILS_ENV=#{stage} && bin/puma.sh start RAILS_ENV=#{stage} && bin/puma.sh start
 namespace :puma do
   desc "Start the application"
   task :start do
-    queue 'echo "-----> Start Puma"'
+    queue 'echo "-----> Start Puma,RAILS_ENV=#{stage} '
     queue "cd #{app_path} && RAILS_ENV=#{stage} && bin/puma.sh start"
   end
 

@@ -1,23 +1,10 @@
 if ENV['RAILS_ENV'] == 'production'
-  threads_count = ENV.fetch("RAILS_MAX_THREADS") { 4 }.to_i
-  threads threads_count, threads_count
 
-  #
-  bind 'unix:///tmp/puma.sock'
-  pidfile '/tmp/puma.pid'
-  rackup '/home/howl/one/config.ru'
-
-  # Specifies the `environment` that Puma will run in.
-  #
-  environment ENV.fetch("RAILS_ENV") { "development" }
-
-
-
-  app_root = '/var/www/r5test/current'
-  pidfile "#{app_root}/tmp/pids/puma.pid"
-  state_path "#{app_root}/tmp/pids/puma.state"
-  bind "unix://#{app_root}/tmp/sockets/puma.sock"
-  activate_control_app "unix://#{app_root}/tmp/sockets/pumactl.sock"
+  app_root = '/var/www/r5test'
+  pidfile "#{app_root}/tmp/puma.pid"
+  state_path "#{app_root}/tmp/puma.state"
+  bind "unix://#{app_root}/tmp/puma.sock"
+  activate_control_app "unix://#{app_root}/tmp/pumactl.sock"
   daemonize true
   workers 2
   threads 2, 4

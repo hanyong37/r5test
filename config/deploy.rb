@@ -89,7 +89,7 @@ task :deploy => :environment do
     end
   end
 end
-RAILS_ENV=#{stage} && bin/puma.sh startRAILS_ENV=#{stage} && bin/puma.sh start
+RAILS_ENV=#{stage} && bin/puma.sh start RAILS_ENV=#{stage} && bin/puma.sh start
 # For help in making your deploy script, see the Mina documentation:
 #
 #  - http://nadarei.co/mina

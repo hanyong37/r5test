@@ -1,8 +1,8 @@
 #! /bin/sh
- APP_PATH=/var/www/r5test/current
+ APP_PATH=/var/www/r5test
 # APP_PATH=~/dev/rails5/r5test
 
-PUMA_CONFIG_FILE=$APP_PATH/config/puma.rb
+PUMA_CONFIG_FILE=$APP_PATH/current/config/puma.rb
 PUMA_PID_FILE=$APP_PATH/tmp/puma.pid
 PUMA_SOCKET=$APP_PATH/tmp/puma.sock
 
